@@ -1,7 +1,16 @@
 http://localhost:3000
 --
 --
+# unknown url
+GET /unknown
+
+--
+# list of all tasks
 GET /
+
+--
+# list with limit
+GET /?limit=1
 
 --
 POST /
@@ -10,3 +19,13 @@ POST /
     "link": "https://twitter.com/michitomaeda/status/1099159508180320256",
     "due_date": "2019-02-28"
 }
+
+--
+PATCH /9575447b-91b4-452a-897a-2065229e1764
+{
+    "done": true,
+    "title": "changed"
+}
+
+--
+DELETE /90448932-19ee-431a-ac3d-931e23b6435f

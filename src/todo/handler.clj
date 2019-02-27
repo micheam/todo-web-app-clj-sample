@@ -2,47 +2,69 @@
   (:require 
     [compojure.core :refer :all]
     [compojure.route :as route]
-    [clojure.java.jdbc :as jdbc]
-    [java-time :as time]
     [ring.middleware.defaults :refer [wrap-defaults api-defaults]]
     [ring.middleware.json :refer [wrap-json-response wrap-json-params]]
     [ring.middleware.keyword-params :refer [wrap-keyword-params]]
-    [ring.util.response :refer [response content-type status header]]))
+    [hiccup.page :as page]
+    [todo.database :as db]
+    [todo.response :as resp]
+    [todo.uuid :as uuid]))
 
-;; Helpers for ring-response
-(defn created [body]
-  {:status 201,
-   :body body})
+;;; handler functions
 
-;; database spec
-(def db {:dbtype "postgresql"
-         :dbname "todo"
-         :host "localhost"
-         :user "postgres"
-         :password ""
-         :ssl false})
+(defn list-task
+  [req]
+  (let [params (:params req)]
+    (resp/ok (db/select-task params))))
 
-;; database functions
-(defn insert-new-task! 
-  [id params]
-  (-> (jdbc/insert! db :task 
-                    {:id id,
-                     :title (:title params),
-                     :link (:link params),
-                     :due_date (some-> (:due_date params) time/local-date)})
-      first
-      (select-keys [:id :title :link :due_date :done])))
+(defn get-task
+  [req]
+  (let [params (:params req)
+        task (db/select-task-by-id (:id params))]
+    (if (nil? task)
+      (resp/not-found)
+      (resp/ok task))))
 
-;; handler functions
 (defn new-task
   [req] 
-  (-> (insert-new-task! (java.util.UUID/randomUUID) (:params req))
-      created))
+  (-> (db/insert-new-task! (uuid/random) (:params req))
+      resp/created))
 
-;; routes
+(defn patch-task
+  [req]
+  (let [params (:params req)]
+    (if (true? (db/update-task-by-id! (:id params) params))
+      (resp/no-contents)
+      (resp/bad-request nil))))
+
+(defn delete-task
+  [req]
+  (let [params (:params req)]
+    (if (true? (db/delete-task-by-id! (:id params)))
+      (resp/no-contents)
+      (resp/not-found))))
+
+(defn index
+  []
+  (page/html5
+    [:head
+     [:title "Welcom"]]
+    [:body
+     [:div {:id "content"}
+      [:h1 "Welcom to my TODO WebAPP"]]]))
+
+;;; define routes
+
 (defroutes app-routes
-  (POST "/" req new-task)
+  (GET "/" [] (index))
+  (GET "/api/" req list-task)
+  (POST "/api/" req new-task)
+  (GET "/api/:id" req get-task)
+  (PATCH "/api/:id" req patch-task)
+  (DELETE "/api/:id" req delete-task)
   (route/not-found "Not Found"))
+
+;;; define app
 
 (def app
   (-> app-routes
