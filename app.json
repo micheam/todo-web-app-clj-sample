@@ -1,0 +1,8 @@
+{
+    "name": "Clojure Web App Sample",
+    "description": "Sample implementation of TODO Web App with clojure and postgresql",
+    "repository": "https://github.com/micheam/todo-web-app-clj-sample",
+    "logo": "https://raw.githubusercontent.com/micheam/todo-webapi-clj/master/doc/logo.png",
+    "keywords": ["clojure", "compojure", "postgresql", "todo-web"],
+    "addons": ["heroku-postgresql"]
+}
