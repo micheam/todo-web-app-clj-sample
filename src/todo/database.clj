@@ -4,7 +4,7 @@
             [todo.uuid :as uuid]))
 
 ;; database spec
-(def db (or (System/getenv "DATABASE_URL")
+(def db-spec (or (System/getenv "DATABASE_URL")
          {:dbtype "postgresql"
          :dbname "todo"
          :host "localhost"
@@ -16,7 +16,7 @@
 (defn insert-new-task! 
   [id params]
   (-> (jdbc/insert! 
-        db :task 
+        db-spec :task 
         {:id id,
          :title (:title params),
          :link (:link params),
@@ -28,7 +28,7 @@
   [id] 
   (some->
     (jdbc/query 
-      db 
+      db-spec 
       ["SELECT * FROM task WHERE id=?", (uuid/->uuid id)])
     first))
 
@@ -37,13 +37,13 @@
   (some->>
     (#(if (nil? %1) "all" (read-string %1)) (:limit param))
     (str "SELECT * FROM task order by created_at desc limit ")
-    (jdbc/query db)))
+    (jdbc/query db-spec)))
 
 (defn update-task-by-id!
   [id param]
   (some->
     (jdbc/update! 
-      db :task
+      db-spec :task
       (select-keys param '(:title :link :due_date :done))
       ["id = ?", (uuid/->uuid id)])
     first
@@ -52,6 +52,6 @@
 (defn delete-task-by-id!
   [id]
   (some-> 
-    (jdbc/delete!  db :task ["id = ?", (uuid/->uuid id)])
+    (jdbc/delete!  db-spec :task ["id = ?", (uuid/->uuid id)])
     first
     (= 1)))
