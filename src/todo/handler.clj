@@ -57,8 +57,8 @@
 
 (defroutes app-routes
   (GET "/" [] (index))
-  (GET "/api/" req list-task)
-  (POST "/api/" req new-task)
+  (GET "/api" req list-task)
+  (POST "/api" req new-task)
   (GET "/api/:id" req get-task)
   (PATCH "/api/:id" req patch-task)
   (DELETE "/api/:id" req delete-task)

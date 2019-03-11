@@ -1,0 +1,37 @@
+http://localhost:3000
+
+--
+--
+# List of all tasks.
+GET /api
+
+--
+# List tasks with limit.
+GET /api?limit=10
+
+--
+# Create new task.
+# - required: title
+# - optional: link, due_date
+POST /api
+{
+    "title": "awesome task",
+    "link": "http://example.com/detail/of/awesome/task",
+    "due_date": "2019-02-09"
+}
+
+--
+# Get task of specified id.
+GET /api/:task-id
+
+--
+# Update task of specified id.
+PATCH /api/:task-id
+{
+    "done": true,
+    "title": "changed title"
+}
+
+--
+# Delete task of specified id.
+DELETE /api/:task-id
