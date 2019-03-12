@@ -53,18 +53,22 @@ APIの詳細仕様については、[api-spec](api-spec.rest) を参照してく
 
 ## ローカル実行方法
 
-[Leiningen](https://github.com/technomancy/leiningen) 2.0.0 以上がインストールされている必要があります。
+以下がインストールされている必要があります。
+
+- [Docker Compose](https://github.com/docker/compose)
+- [Leiningen](https://github.com/technomancy/leiningen) 2.0.0 以上
 
 WEBサーバを起動する場合には、以下を実行してください :
 
 ```sh
+$ docker-compose up -d
 $ lein ring server
 ```
 
 ## Heroku環境での実行方法
 
 以下にデプロイされています。  
-https://todo-web-qpp-clj-sample.herokuapp.com
+https://todo-web-app-clj-sample.herokuapp.com
 
 実際にAPIの動作を確認してみる場合には、
 以下の様にアクセスしてみてください:
