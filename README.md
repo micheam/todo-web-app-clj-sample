@@ -49,7 +49,7 @@ DELETE /api/:task_id
 ```
 
 
-APIの詳細仕様については、[api-spec](api-spec.rest) を参照してください。
+APIの詳細仕様については、[api-spec](api-spec.txt) を参照してください。
 
 ## ローカル実行方法
 
