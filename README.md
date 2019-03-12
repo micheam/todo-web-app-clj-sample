@@ -76,7 +76,9 @@ https://todo-web-app-clj-sample.herokuapp.com
 ```sh
 $ curl -X POST \
   -d '{"title","Hello, World."}' \
-  https://todo-web-qpp-clj-sample.herokuapp.com/api
+  https://todo-web-app-clj-sample.herokuapp.com/api
+
+$ curl https://todo-web-app-clj-sample.herokuapp.com/api
 ```
 
 
