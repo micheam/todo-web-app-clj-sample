@@ -93,4 +93,8 @@ $ curl https://todo-web-app-clj-sample.herokuapp.com/api
 
 ## License
 
-Copyright © 2019 michito.maeda+github@gmail.com
+MIT License
+
+Copyright (c) 2019 Michito Maeda
+
+michito.maeda+github@gmail.com
