@@ -53,8 +53,7 @@ APIの詳細仕様については、[api-spec](api-spec.rest) を参照してく
 
 ## ローカル実行方法
 
-[Leiningen][] 2.0.0 以上がインストールされている必要があります。
-[leiningen]: https://github.com/technomancy/leiningen
+[Leiningen](https://github.com/technomancy/leiningen) 2.0.0 以上がインストールされている必要があります。
 
 WEBサーバを起動する場合には、以下を実行してください :
 
@@ -62,7 +61,8 @@ WEBサーバを起動する場合には、以下を実行してください :
 $ lein ring server
 ```
 
-## Heroku環境
+## Heroku環境での実行方法
+
 以下にデプロイされています。  
 https://todo-web-qpp-clj-sample.herokuapp.com
 
@@ -75,8 +75,8 @@ $ curl -X POST \
   https://todo-web-qpp-clj-sample.herokuapp.com/api
 ```
 
-Herokuにアカウントをお持ちの場合は、
-以下のボタン使って自身のHeroku環境にデプロイすることもできます。
+
+以下のボタン使ってあなたのHeroku環境にデプロイすることもできます。
 
 <a href="https://heroku.com/deploy?template=https://github.com/micheam/todo-web-app-clj-sample">
   <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
